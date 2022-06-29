@@ -8,6 +8,8 @@ interface Props extends PriceRangeProps {
 	title: string;
 	calculatedTitle: string;
 	onChangeValue: any;
+	handleDataRefetch: any;
+	revalidateData: boolean;
 }
 
 const CalculatorRow = (props: Props): JSX.Element => {
@@ -26,6 +28,8 @@ const CalculatorRow = (props: Props): JSX.Element => {
 				value={props.value}
 				step={props.step}
 				onChangeValue={props.onChangeValue}
+				handleDataRefetch={props.handleDataRefetch}
+				revalidateData={props.revalidateData}
 			/>
 		</Calculator.Content>
 	);

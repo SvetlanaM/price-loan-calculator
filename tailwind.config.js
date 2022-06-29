@@ -18,7 +18,11 @@ module.exports = {
 				primary: 'currentColor',
 				green: {
 					DEFAULT: '#a2cd39',
-					dark: '#10642b',
+					dark: '#5ec6ca',
+				},
+				pink: {
+					DEFAULT: '#fdcce4',
+					dark: '#b6709a',
 				},
 			},
 		},

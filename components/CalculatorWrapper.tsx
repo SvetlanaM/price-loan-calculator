@@ -12,6 +12,8 @@ interface Props {
 	selectedTerm: number;
 	onChangeAmount: any;
 	onChangeTerm: any;
+	handleDataRefetch: any;
+	revalidateData: boolean;
 }
 
 const CalculatorWrapper = ({
@@ -21,21 +23,25 @@ const CalculatorWrapper = ({
 	selectedTerm,
 	onChangeAmount,
 	onChangeTerm,
+	handleDataRefetch,
+	revalidateData,
 }: Props): JSX.Element => {
 	const calcRef = useRef<HTMLDivElement | null>(null);
 
 	return (
-		<div className='w-96 bg-green shadow-xl text-white'>
+		<div className='w-96 bg-pink shadow-xl text-pink-dark'>
 			<Calculator calcRef={calcRef}>
 				<CalculatorRow
 					calcRef={calcRef}
 					title={STATIC_TEXT_EN.total_amount}
 					calculatedTitle={selectedAmount + ' EUR'}
-					min={amountInterval.min}
-					max={amountInterval.max}
+					min={amountInterval?.min}
+					max={amountInterval?.max}
 					value={selectedAmount}
-					step={amountInterval.step}
+					step={amountInterval?.step}
 					onChangeValue={onChangeAmount}
+					handleDataRefetch={handleDataRefetch}
+					revalidateData={revalidateData}
 				/>
 				<Divider isWhite={true} />
 				<CalculatorRow
@@ -47,6 +53,8 @@ const CalculatorWrapper = ({
 					value={selectedTerm}
 					step={termInterval?.step}
 					onChangeValue={onChangeTerm}
+					handleDataRefetch={handleDataRefetch}
+					revalidateData={revalidateData}
 				/>
 			</Calculator>
 		</div>

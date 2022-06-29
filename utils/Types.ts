@@ -13,3 +13,10 @@ export type CalculatorResult = {
 	monthlyPayment: number
 }
 
+export enum States {
+	NonInitialited = 'not-initiated',
+	Loading = 'loading',
+	Error = 'error',
+	Loaded = 'loaded'
+}
+

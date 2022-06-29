@@ -33,13 +33,13 @@ const ResultWrapper = (props: CalculatorResult): JSX.Element => {
 					/>
 					<Result.Row
 						label={STATIC_TEXT_EN.monthly_payment}
-						value={props.monthlyPayment.toFixed(2)}
+						value={props.monthlyPayment?.toFixed(2)}
 						extraClassNames={['font-bold', 'text-green-dark']}
 						additionalVat={additionalVat}
 					/>
 					<Result.Row
 						label={STATIC_TEXT_EN.term}
-						value={'14/JUL/2022'}
+						value={props.term + ' months'}
 						extraClassNames={['font-bold', 'text-green-dark']}
 					/>
 				</Result.RowContainer>

@@ -5,7 +5,7 @@ export interface Props {
 }
 
 const RowContainer = ({ children }: Props): JSX.Element => {
-	return <div className=''>{children}</div>;
+	return <div className='row-container'>{children}</div>;
 };
 
 export default RowContainer;

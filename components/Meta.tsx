@@ -17,6 +17,7 @@ const Meta = (): JSX.Element => {
 			<meta name='author' content='Svetlana Margetová' />
 			<meta name='viewport' content='width=device-width, initial-scale=1.0' />
 			<meta name='format-detection' content='telephone=no' />
+			<title>Bootiq pricing calculator</title>
 		</Head>
 	);
 };

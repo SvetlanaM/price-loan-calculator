@@ -5,11 +5,12 @@ import ResultWrapper from '../components/ResultWrapper';
 import { useQuery } from 'react-query';
 import CalculatorAPI from '../api/calculator';
 import Loading from '../components/Loading';
-import { CalculatorType } from '../utils/Types';
+import { CalculatorType, States } from '../utils/Types';
 import ErrorScreen from '../components/ErrorScreen';
 import CalculatorScreen from '../components/CalculatorScreen';
+import NetworkComponent from '../components/NetworkComponent';
 
-const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Home = (props: InferGetStaticPropsType<typeof getServerSideProps>) => {
 	const {
 		data: initialData,
 		isError,
@@ -19,25 +20,36 @@ const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
 		Error
 	>(['initial'], {
 		initialData: props.initial,
-		onError: (error) => alert(error.message),
+		onError: (error) => console.log(error.message),
 	});
 
-	const getComponent = () => {
+	const getState = (): States => {
 		if (isError) {
-			return <ErrorScreen userMessage={'error'} />;
+			return States.Error;
 		}
 
-		return isLoading ? (
-			<Loading />
-		) : (
-			initialData && <CalculatorScreen data={initialData} />
-		);
+		if (isLoading) {
+			return States.Loading;
+		}
+
+		if (initialData) {
+			return States.Loaded;
+		}
+
+		return States.NonInitialited;
 	};
 
-	return <Layout>{getComponent()}</Layout>;
+	return (
+		<NetworkComponent
+			children={
+				initialData ? <CalculatorScreen data={initialData} /> : <Loading />
+			}
+			state={getState()}
+		/>
+	);
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
 	try {
 		const { data, status } = await CalculatorAPI.get_constraints();
 
@@ -46,7 +58,6 @@ export async function getStaticProps() {
 				props: {
 					initial: data,
 				},
-				revalidate: 1,
 			};
 		} else {
 			console.error('error');

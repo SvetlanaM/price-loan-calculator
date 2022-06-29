@@ -1,11 +1,11 @@
 import { __ApiPreviewProps } from 'next/dist/server/api-utils';
-import { initScriptLoader } from 'next/script';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import CalculatorAPI from '../api/calculator';
 import { numberWithSpace } from '../utils/Format';
 import { CalculatorResult, CalculatorType } from '../utils/Types';
 import CalculatorWrapper from './CalculatorWrapper';
+import ErrorScreen from './ErrorScreen';
 import Loading from './Loading';
 import ResultWrapper from './ResultWrapper';
 
@@ -17,9 +17,11 @@ const CalculatorScreen = ({ data }: Props) => {
 	const [value, setValue] = useState<
 		Record<'amountInterval' | 'termInterval', number | string>
 	>({
-		amountInterval: numberWithSpace(data.amountInterval.defaultValue) || 0,
-		termInterval: data.termInterval.defaultValue || 0,
+		amountInterval: numberWithSpace(data.amountInterval?.defaultValue) || 0,
+		termInterval: data.termInterval?.defaultValue || 0,
 	});
+
+	const [revalidateData, setRevalidateData] = useState<boolean>(false);
 
 	const onChangeAmount = (amountInterval: number) => {
 		setValue({ ...value, amountInterval: amountInterval });
@@ -29,8 +31,12 @@ const CalculatorScreen = ({ data }: Props) => {
 		setValue({ ...value, termInterval: termInterval });
 	};
 
-	const { data: resultsData } = useQuery<CalculatorResult, Error>(
-		[value],
+	const {
+		data: resultsData,
+		refetch,
+		error: resultError,
+	} = useQuery<CalculatorResult, Error>(
+		[],
 		async () => {
 			const response = await CalculatorAPI.get_loan(
 				+value.amountInterval,
@@ -41,8 +47,12 @@ const CalculatorScreen = ({ data }: Props) => {
 			}
 			return response.data;
 		},
-		{ keepPreviousData: true }
+		{ enabled: false }
 	);
+
+	useEffect(() => {
+		refetch();
+	}, [data, revalidateData]);
 
 	return (
 		<React.Fragment>
@@ -52,8 +62,16 @@ const CalculatorScreen = ({ data }: Props) => {
 				selectedTerm={+value.termInterval}
 				onChangeAmount={onChangeAmount}
 				onChangeTerm={onChangeTerm}
+				handleDataRefetch={setRevalidateData}
+				revalidateData={revalidateData}
 			/>
-			{resultsData && <ResultWrapper {...resultsData} />}
+			{resultsData ? (
+				<ResultWrapper {...resultsData} />
+			) : resultError ? (
+				<ErrorScreen userMessage='error - no data' />
+			) : (
+				<Loading />
+			)}
 		</React.Fragment>
 	);
 };
