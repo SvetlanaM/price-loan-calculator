@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { stableValueHash } from 'react-query/types/core/utils';
+import React, { Dispatch, useState } from 'react';
 import PriceRangeIndicator from '../PriceRangeIndicator';
 
 export interface PriceRangeProps {
@@ -7,8 +6,8 @@ export interface PriceRangeProps {
 	max: number;
 	step: number;
 	value: number;
-	onChangeValue: any;
-	handleDataRefetch: any;
+	onChangeValue: (value: number) => void;
+	handleDataRefetch: Dispatch<boolean>;
 	revalidateData: boolean;
 }
 
@@ -23,10 +22,10 @@ const PriceRange = ({
 }: PriceRangeProps): JSX.Element => {
 	const [inputValue, setInputValue] = useState(value);
 
-	const handleChangeValue = (e: any) => {
-		let value = e.target.value;
-		setInputValue(value);
-		onChangeValue(value);
+	const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const { value } = e.target;
+		setInputValue(+value);
+		onChangeValue(+value);
 	};
 
 	const handleMinMax = (minMax: number) => {
@@ -45,7 +44,7 @@ const PriceRange = ({
 					className='range range-secondary'
 					step={step}
 					value={inputValue}
-					onChange={(e) => {
+					onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 						handleChangeValue(e);
 					}}
 					onClick={() => {

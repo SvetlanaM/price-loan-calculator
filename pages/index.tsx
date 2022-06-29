@@ -1,12 +1,8 @@
 import type { InferGetStaticPropsType } from 'next';
-import CalculatorWrapper from '../components/CalculatorWrapper';
-import Layout from '../components/Layout';
-import ResultWrapper from '../components/ResultWrapper';
 import { useQuery } from 'react-query';
 import CalculatorAPI from '../api/calculator';
 import Loading from '../components/Loading';
 import { CalculatorType, States } from '../utils/Types';
-import ErrorScreen from '../components/ErrorScreen';
 import CalculatorScreen from '../components/CalculatorScreen';
 import NetworkComponent from '../components/NetworkComponent';
 
@@ -20,7 +16,6 @@ const Home = (props: InferGetStaticPropsType<typeof getServerSideProps>) => {
 		Error
 	>(['initial'], {
 		initialData: props.initial,
-		onError: (error) => console.log(error.message),
 	});
 
 	const getState = (): States => {

@@ -1,5 +1,5 @@
 import { __ApiPreviewProps } from 'next/dist/server/api-utils';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import CalculatorAPI from '../api/calculator';
 import { numberWithSpace } from '../utils/Format';
@@ -20,7 +20,6 @@ const CalculatorScreen = ({ data }: Props) => {
 		amountInterval: numberWithSpace(data.amountInterval?.defaultValue) || 0,
 		termInterval: data.termInterval?.defaultValue || 0,
 	});
-
 	const [revalidateData, setRevalidateData] = useState<boolean>(false);
 
 	const onChangeAmount = (amountInterval: number) => {

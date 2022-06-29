@@ -1,10 +1,6 @@
 import { useCallback } from 'react';
 
-const useLogger = (): ((
-	errorType?: string,
-	customErrorMessage?: string,
-	userId?: string
-) => void) => {
+const useLogger = () => {
 
 	return useCallback(
 		(

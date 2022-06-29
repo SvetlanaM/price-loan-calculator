@@ -16,9 +16,7 @@ const ErrorScreen = ({ userMessage }: ErrorScreenProps): JSX.Element => {
 
 	return (
 		<div className='flex justify-center flex-col min-h-auto items-center py-16'>
-			<h2 className='text-2xl font-medium text-purple-darkest mt-5'>
-				{errorMessage}
-			</h2>
+			<h2 className='text-2xl font-medium mt-5'>{errorMessage}</h2>
 		</div>
 	);
 };

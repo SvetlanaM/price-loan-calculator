@@ -1,6 +1,8 @@
+import { MouseEventHandler } from 'react';
+
 interface Props {
 	value: number;
-	onChangeValue: any;
+	onChangeValue: MouseEventHandler<HTMLSpanElement>;
 }
 
 const PriceRangeIndicator = ({ value, onChangeValue }: Props): JSX.Element => {

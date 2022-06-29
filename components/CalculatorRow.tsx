@@ -1,4 +1,4 @@
-import { Ref } from 'react';
+import { Dispatch, Ref } from 'react';
 import Calculator from '../components/Calculator/index';
 import { PriceRangeProps } from './Calculator/PriceRange';
 import ColumnContainer from './ColumnContainer';
@@ -7,8 +7,8 @@ interface Props extends PriceRangeProps {
 	calcRef: Ref<HTMLDivElement> | undefined;
 	title: string;
 	calculatedTitle: string;
-	onChangeValue: any;
-	handleDataRefetch: any;
+	onChangeValue: (value: number) => void;
+	handleDataRefetch: Dispatch<boolean>;
 	revalidateData: boolean;
 }
 

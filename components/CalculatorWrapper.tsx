@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { Dispatch, useRef } from 'react';
 import Calculator from '../components/Calculator/index';
 import { STATIC_TEXT_EN } from '../utils/Constants';
 import { CalculatorType } from '../utils/Types';
@@ -10,9 +10,9 @@ interface Props {
 	termInterval: CalculatorType;
 	selectedAmount: number;
 	selectedTerm: number;
-	onChangeAmount: any;
-	onChangeTerm: any;
-	handleDataRefetch: any;
+	onChangeAmount: (amountInterval: number) => void;
+	onChangeTerm: (termInterval: number) => void;
+	handleDataRefetch: Dispatch<boolean>;
 	revalidateData: boolean;
 }
 

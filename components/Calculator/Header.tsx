@@ -11,7 +11,7 @@ const Header = ({ title, children, extraClassNames }: Props): JSX.Element => (
 		<span className={`text-lg font-bold ${extraClassNames && extraClassNames}`}>
 			{title}
 		</span>
-		{children ? <div>{children}</div> : null}
+		{children && <div>{children}</div>}
 	</div>
 );
 
