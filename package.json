@@ -6,9 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ./ --ext js,jsx,ts,tsx"
   },
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.30.0",
     "axios": "^0.27.2",
     "classnames": "^2.3.1",
     "daisyui": "^2.17.0",

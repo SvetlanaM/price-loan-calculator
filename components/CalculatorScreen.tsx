@@ -1,4 +1,3 @@
-import { __ApiPreviewProps } from 'next/dist/server/api-utils';
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import CalculatorAPI from '../api/calculator';
