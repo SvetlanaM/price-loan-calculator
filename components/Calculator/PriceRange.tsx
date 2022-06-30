@@ -50,7 +50,7 @@ const PriceRange = ({
 					onClick={() => {
 						handleDataRefetch(!revalidateData);
 					}}
-					onMouseUp={() => {
+					onBlur={() => {
 						handleDataRefetch(!revalidateData);
 					}}
 				/>
