@@ -45,7 +45,7 @@ const CalculatorScreen = ({ data }: Props) => {
 		return response.data;
 	};
 
-	console.log('Num of refetch', numOfRefetch);
+	console.log('Num of refetch', numOfRefetch, value);
 
 	const {
 		data: resultsData,

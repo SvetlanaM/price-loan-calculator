@@ -1,4 +1,4 @@
-import React, { Dispatch, useState } from 'react';
+import React, { Dispatch, useEffect, useState } from 'react';
 import PriceRangeIndicator from '../PriceRangeIndicator';
 
 export interface PriceRangeProps {
@@ -29,9 +29,12 @@ const PriceRange = ({
 	};
 
 	const handleMinMax = (minMax: number) => {
+		handleDataRefetch(true);
 		setInputValue(minMax);
 		onChangeValue(minMax);
 	};
+
+	useEffect(() => handleDataRefetch(false), [revalidateData, min, max]);
 
 	return (
 		<React.Fragment>
@@ -51,10 +54,10 @@ const PriceRange = ({
 						handleDataRefetch(false);
 					}}
 					onMouseUp={() => {
-						handleDataRefetch(!revalidateData);
+						handleDataRefetch(true);
 					}}
 					onTouchEnd={() => {
-						handleDataRefetch(!revalidateData);
+						handleDataRefetch(true);
 					}}
 				/>
 				<div className='flex justify-between font-bold mt-3'>
@@ -62,14 +65,12 @@ const PriceRange = ({
 						value={min}
 						onChangeValue={() => {
 							handleMinMax(min);
-							handleDataRefetch(true);
 						}}
 					/>
 					<PriceRangeIndicator
 						value={max}
 						onChangeValue={() => {
 							handleMinMax(max);
-							handleDataRefetch(true);
 						}}
 					/>
 				</div>
