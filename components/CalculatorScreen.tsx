@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import CalculatorAPI from '../api/calculator';
@@ -29,28 +30,38 @@ const CalculatorScreen = ({ data }: Props) => {
 		setValue({ ...value, termInterval: termInterval });
 	};
 
+	const [numOfRefetch, setNumOfRefetch] = useState(0);
+
+	const fetchResults = async () => {
+		setNumOfRefetch((prev) => prev + 1);
+
+		const response = await CalculatorAPI.get_loan(
+			+value.amountInterval,
+			+value.termInterval
+		);
+		if (!response.status) {
+			throw new Error('Network response was not ok');
+		}
+		return response.data;
+	};
+
+	console.log('Num of refetch', numOfRefetch);
+
 	const {
 		data: resultsData,
+		isError: resultError,
 		refetch,
-		error: resultError,
-	} = useQuery<CalculatorResult, Error>(
-		[],
-		async () => {
-			const response = await CalculatorAPI.get_loan(
-				+value.amountInterval,
-				+value.termInterval
-			);
-			if (!response.status) {
-				throw new Error('Network response was not ok');
-			}
-			return response.data;
-		},
-		{ enabled: false }
-	);
+	} = useQuery([value], () => fetchResults(), {
+		enabled: revalidateData,
+		staleTime: 5 * 60 * 1000,
+		cacheTime: 5 * 60 * 1000,
+		keepPreviousData: true,
+	});
 
 	useEffect(() => {
 		refetch();
-	}, [data, revalidateData]);
+		setRevalidateData(false);
+	}, [data]);
 
 	return (
 		<React.Fragment>

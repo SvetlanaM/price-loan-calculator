@@ -48,7 +48,7 @@ const PriceRange = ({
 						handleChangeValue(e);
 					}}
 					onClick={() => {
-						handleDataRefetch(!revalidateData);
+						handleDataRefetch(false);
 					}}
 					onMouseUp={() => {
 						handleDataRefetch(!revalidateData);
@@ -62,14 +62,14 @@ const PriceRange = ({
 						value={min}
 						onChangeValue={() => {
 							handleMinMax(min);
-							handleDataRefetch(!revalidateData);
+							handleDataRefetch(true);
 						}}
 					/>
 					<PriceRangeIndicator
 						value={max}
 						onChangeValue={() => {
 							handleMinMax(max);
-							handleDataRefetch(!revalidateData);
+							handleDataRefetch(true);
 						}}
 					/>
 				</div>
