@@ -7,6 +7,7 @@ import CalculatorScreen from '../components/CalculatorScreen';
 import NetworkComponent from '../components/NetworkComponent';
 
 const Home = (props: InferGetStaticPropsType<typeof getServerSideProps>) => {
+	//In real app, no need and based on real use case, switch to GetStaticProps
 	const {
 		data: initialData,
 		isError,
@@ -18,6 +19,7 @@ const Home = (props: InferGetStaticPropsType<typeof getServerSideProps>) => {
 		initialData: props.initial,
 	});
 
+	//Review: it should be better move this logic on another place
 	const getState = (): States => {
 		if (isError) {
 			return States.Error;
@@ -34,6 +36,7 @@ const Home = (props: InferGetStaticPropsType<typeof getServerSideProps>) => {
 		return States.NonInitialited;
 	};
 
+	//Review: Based on architecture in a team, move this initial data as a props to network component
 	return (
 		<NetworkComponent
 			children={

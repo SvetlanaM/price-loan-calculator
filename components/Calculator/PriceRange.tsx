@@ -22,6 +22,8 @@ const PriceRange = ({
 }: PriceRangeProps): JSX.Element => {
 	const [inputValue, setInputValue] = useState(value);
 
+	//rewrite with more universal function for handleChangeValue and handleMinMax
+	// use context api instead sending props up and down - idea or move this to the custom hook
 	const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target;
 		setInputValue(+value);

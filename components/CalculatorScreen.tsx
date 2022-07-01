@@ -14,6 +14,7 @@ interface Props {
 }
 
 const CalculatorScreen = ({ data }: Props) => {
+	//here is too much logic in one component, move to smaller piece, to one hook or replace with reducer
 	const [value, setValue] = useState<
 		Record<'amountInterval' | 'termInterval', number | string>
 	>({
@@ -32,6 +33,8 @@ const CalculatorScreen = ({ data }: Props) => {
 
 	const [numOfRefetch, setNumOfRefetch] = useState(0);
 
+	//can be in index.page and send to children instead here
+	// use native fetch, instead axios
 	const fetchResults = async () => {
 		setNumOfRefetch((prev) => prev + 1);
 
@@ -47,17 +50,19 @@ const CalculatorScreen = ({ data }: Props) => {
 
 	console.log('Num of refetch', numOfRefetch, value);
 
+	//reuse unversal network component
 	const {
 		data: resultsData,
 		isError: resultError,
 		refetch,
 	} = useQuery([value], () => fetchResults(), {
 		enabled: revalidateData,
-		staleTime: 5 * 60 * 1000,
+		staleTime: 5 * 60 * 1000, //move to constant or setup globally in app
 		cacheTime: 5 * 60 * 1000,
 		keepPreviousData: true,
 	});
 
+	//not needed right now
 	useEffect(() => {
 		refetch();
 		setRevalidateData(false);
