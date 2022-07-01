@@ -35,6 +35,8 @@ const CalculatorScreen = ({ data }: Props) => {
 
 	//can be in index.page and send to children instead here
 	// use native fetch, instead axios
+	// add useDebounce hook for delays and more smooth progres or try
+	// to new React 18 features - useTransition and useDeferredValue
 	const fetchResults = async () => {
 		setNumOfRefetch((prev) => prev + 1);
 
