@@ -6,6 +6,7 @@ const headers =  {
 	'Content-Type': 'application/json',
 }
 
+//rewrite these 2 calls with universal funcion
 const CalculatorAPI = {
 	get_constraints: async (): Promise<Omit<AxiosResponse, 'statusText' | 'headers' | 'config'>> => {
 		const {data, status } = await axios.get<Record<'amountInterval' | 'termInterval', CalculatorType>>(`/constraints`, {

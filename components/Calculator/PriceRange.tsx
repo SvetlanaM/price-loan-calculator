@@ -20,6 +20,7 @@ const PriceRange = ({
 	handleDataRefetch,
 	revalidateData,
 }: PriceRangeProps): JSX.Element => {
+	//try useRef instead useState here
 	const [inputValue, setInputValue] = useState(value);
 
 	//rewrite with more universal function for handleChangeValue and handleMinMax
