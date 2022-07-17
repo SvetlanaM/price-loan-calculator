@@ -35,10 +35,12 @@ const CalculatorWrapper = ({
 					calcRef={calcRef}
 					title={STATIC_TEXT_EN.total_amount}
 					calculatedTitle={selectedAmount + ' EUR'}
-					min={amountInterval?.min}
-					max={amountInterval?.max}
-					value={selectedAmount}
-					step={amountInterval?.step}
+					calculatorValues={{
+						defaultValue: selectedAmount,
+						min: amountInterval.min,
+						max: amountInterval.max,
+						step: amountInterval.step,
+					}}
 					onChangeValue={onChangeAmount}
 					handleDataRefetch={handleDataRefetch}
 					revalidateData={revalidateData}
@@ -48,10 +50,12 @@ const CalculatorWrapper = ({
 					calcRef={calcRef}
 					title={STATIC_TEXT_EN.term}
 					calculatedTitle={selectedTerm + ' days'}
-					min={termInterval?.min}
-					max={termInterval?.max}
-					value={selectedTerm}
-					step={termInterval?.step}
+					calculatorValues={{
+						defaultValue: selectedTerm,
+						min: termInterval.min,
+						max: termInterval.max,
+						step: termInterval.step,
+					}}
 					onChangeValue={onChangeTerm}
 					handleDataRefetch={handleDataRefetch}
 					revalidateData={revalidateData}

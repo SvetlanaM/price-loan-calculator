@@ -23,10 +23,7 @@ const CalculatorRow = (props: Props): JSX.Element => {
 				/>
 			</ColumnContainer>
 			<Calculator.PriceRange
-				min={props.min}
-				max={props.max}
-				value={props.value}
-				step={props.step}
+				calculatorValues={props.calculatorValues}
 				onChangeValue={props.onChangeValue}
 				handleDataRefetch={props.handleDataRefetch}
 				revalidateData={props.revalidateData}
