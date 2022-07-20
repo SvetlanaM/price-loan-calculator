@@ -4,13 +4,10 @@ import Row from './Row';
 
 interface Props {
 	children: ReactNode;
-	resultRef?: Ref<HTMLDivElement>;
 }
 
-const Result = ({ children, resultRef }: Props): JSX.Element => (
-	<div ref={resultRef} className='px-8 py-4 font-light '>
-		{children}
-	</div>
+const Result = ({ children }: Props): JSX.Element => (
+	<div className='px-8 py-4 font-light '>{children}</div>
 );
 
 Result.RowContainer = RowContainer;

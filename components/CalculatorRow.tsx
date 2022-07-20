@@ -4,7 +4,6 @@ import { PriceRangeProps } from './Calculator/PriceRange';
 import ColumnContainer from './ColumnContainer';
 
 interface Props extends PriceRangeProps {
-	calcRef: Ref<HTMLDivElement> | undefined;
 	title: string;
 	calculatedTitle: string;
 	onChangeValue: (value: number) => void;

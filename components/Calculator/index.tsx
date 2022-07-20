@@ -6,12 +6,9 @@ import PriceRange from './PriceRange';
 interface Props {
 	children: ReactNode;
 	extraClassNames?: string[];
-	calcRef?: Ref<HTMLDivElement>;
 }
 
-const Calculator = ({ children, calcRef }: Props): JSX.Element => (
-	<div ref={calcRef}>{children}</div>
-);
+const Calculator = ({ children }: Props): JSX.Element => <div>{children}</div>;
 
 Calculator.Content = Content;
 Calculator.Header = Header;

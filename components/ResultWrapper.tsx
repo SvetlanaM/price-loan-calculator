@@ -10,11 +10,9 @@ const additionalVat = (
 );
 
 const ResultWrapper = (props: CalculatorResult): JSX.Element => {
-	const resultRef = useRef<HTMLDivElement | null>(null);
-
 	return (
 		<div className='w-96 bg-white shadow-xl h-auto'>
-			<Result resultRef={resultRef}>
+			<Result>
 				<Result.RowContainer>
 					<Result.Row
 						label={STATIC_TEXT_EN.total_principal}

@@ -29,8 +29,6 @@ const CalculatorWrapper = ({
 	onChangeAmount,
 	onChangeTerm,
 }: Props): JSX.Element => {
-	const calcRef = useRef<HTMLDivElement | null>(null);
-
 	const [[selectedAmountInput, selectedTermInput], setInputValue] = useState([
 		selectedAmount,
 		selectedTerm,
@@ -56,9 +54,8 @@ const CalculatorWrapper = ({
 
 	return (
 		<div className='w-96 bg-pink shadow-xl text-pink-dark'>
-			<Calculator calcRef={calcRef}>
+			<Calculator>
 				<CalculatorRow
-					calcRef={calcRef}
 					title={STATIC_TEXT_EN.total_amount}
 					calculatedTitle={selectedAmountInput + ' EUR'}
 					calculatorValues={{
@@ -73,7 +70,6 @@ const CalculatorWrapper = ({
 				/>
 				<Divider isWhite={true} />
 				<CalculatorRow
-					calcRef={calcRef}
 					title={STATIC_TEXT_EN.term}
 					calculatedTitle={selectedTermInput + ' days'}
 					calculatorValues={{
