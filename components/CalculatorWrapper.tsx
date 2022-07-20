@@ -1,9 +1,8 @@
 import {
 	DetailedHTMLProps,
-	Dispatch,
 	InputHTMLAttributes,
+	MutableRefObject,
 	useCallback,
-	useEffect,
 	useRef,
 	useState,
 } from 'react';
@@ -32,33 +31,27 @@ const CalculatorWrapper = ({
 }: Props): JSX.Element => {
 	const calcRef = useRef<HTMLDivElement | null>(null);
 
-	const [[inputValue, inputValue2], setInputValue] = useState([
+	const [[selectedAmountInput, selectedTermInput], setInputValue] = useState([
 		selectedAmount,
 		selectedTerm,
 	]);
 
-	const inputValueRef =
-		useRef<
-			DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
-		>(null);
+	const inputAmountRef = useRef(null);
 
-	const inputValueRef2 =
-		useRef<
-			DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
-		>(null);
+	const inputTermRef = useRef(null);
 
 	const handleChangeValue = useCallback(
-		(e: any) => {
-			setInputValue([e, inputValue2]);
+		(value: number) => {
+			setInputValue([value, selectedTermInput]);
 		},
-		[inputValue2]
+		[selectedTermInput]
 	);
 
 	const handleChangeValue2 = useCallback(
-		(e: any) => {
-			setInputValue([inputValue, e]);
+		(value: number) => {
+			setInputValue([selectedAmountInput, value]);
 		},
-		[inputValue]
+		[selectedAmountInput]
 	);
 
 	return (
@@ -67,30 +60,30 @@ const CalculatorWrapper = ({
 				<CalculatorRow
 					calcRef={calcRef}
 					title={STATIC_TEXT_EN.total_amount}
-					calculatedTitle={inputValue + ' EUR'}
+					calculatedTitle={selectedAmountInput + ' EUR'}
 					calculatorValues={{
-						defaultValue: inputValue,
+						defaultValue: selectedAmountInput,
 						min: amountInterval.min,
 						max: amountInterval.max,
 						step: amountInterval.step,
 					}}
 					onChangeValue={onChangeAmount}
-					inputValueRef={inputValueRef}
+					inputValueRef={inputAmountRef}
 					handleChangeValue={handleChangeValue}
 				/>
 				<Divider isWhite={true} />
 				<CalculatorRow
 					calcRef={calcRef}
 					title={STATIC_TEXT_EN.term}
-					calculatedTitle={inputValue2 + ' days'}
+					calculatedTitle={selectedTermInput + ' days'}
 					calculatorValues={{
-						defaultValue: inputValue2,
+						defaultValue: selectedTermInput,
 						min: termInterval.min,
 						max: termInterval.max,
 						step: termInterval.step,
 					}}
 					onChangeValue={onChangeTerm}
-					inputValueRef={inputValueRef2}
+					inputValueRef={inputTermRef}
 					handleChangeValue={handleChangeValue2}
 				/>
 			</Calculator>

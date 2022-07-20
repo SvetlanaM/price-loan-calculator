@@ -1,4 +1,4 @@
-import { Dispatch, forwardRef, Ref } from 'react';
+import { forwardRef, Ref } from 'react';
 import Calculator from '../components/Calculator/index';
 import { PriceRangeProps } from './Calculator/PriceRange';
 import ColumnContainer from './ColumnContainer';
@@ -8,8 +8,8 @@ interface Props extends PriceRangeProps {
 	title: string;
 	calculatedTitle: string;
 	onChangeValue: (value: number) => void;
-	inputValueRef: any;
-	handleChangeValue: any;
+	inputValueRef: React.MutableRefObject<HTMLInputElement | null>;
+	handleChangeValue: (value: number) => void;
 }
 
 const CalculatorRow = forwardRef((props: Props, ref): JSX.Element => {

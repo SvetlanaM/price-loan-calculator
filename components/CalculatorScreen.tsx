@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery } from 'react-query';
 import { numberWithSpace } from '../utils/Format';
 import { CalculatorType } from '../utils/Types';
