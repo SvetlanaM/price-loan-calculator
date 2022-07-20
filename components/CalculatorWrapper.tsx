@@ -1,4 +1,12 @@
-import { Dispatch, useRef } from 'react';
+import {
+	DetailedHTMLProps,
+	Dispatch,
+	InputHTMLAttributes,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 import Calculator from '../components/Calculator/index';
 import { STATIC_TEXT_EN } from '../utils/Constants';
 import { CalculatorType } from '../utils/Types';
@@ -12,8 +20,6 @@ interface Props {
 	selectedTerm: number;
 	onChangeAmount: (amountInterval: number) => void;
 	onChangeTerm: (termInterval: number) => void;
-	handleDataRefetch: Dispatch<boolean>;
-	revalidateData: boolean;
 }
 
 const CalculatorWrapper = ({
@@ -23,10 +29,31 @@ const CalculatorWrapper = ({
 	selectedTerm,
 	onChangeAmount,
 	onChangeTerm,
-	handleDataRefetch,
-	revalidateData,
 }: Props): JSX.Element => {
 	const calcRef = useRef<HTMLDivElement | null>(null);
+
+	const [[inputValue, inputValue2], setInputValue] = useState([
+		selectedAmount,
+		selectedTerm,
+	]);
+
+	const inputValueRef =
+		useRef<
+			DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+		>(null);
+
+	const inputValueRef2 =
+		useRef<
+			DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+		>(null);
+
+	const handleChangeValue = useCallback((e: any) => {
+		setInputValue([e, inputValue2]);
+	}, []);
+
+	const handleChangeValue2 = useCallback((e: any) => {
+		setInputValue([inputValue, e]);
+	}, []);
 
 	return (
 		<div className='w-96 bg-pink shadow-xl text-pink-dark'>
@@ -34,7 +61,7 @@ const CalculatorWrapper = ({
 				<CalculatorRow
 					calcRef={calcRef}
 					title={STATIC_TEXT_EN.total_amount}
-					calculatedTitle={selectedAmount + ' EUR'}
+					calculatedTitle={inputValue + ' EUR'}
 					calculatorValues={{
 						defaultValue: selectedAmount,
 						min: amountInterval.min,
@@ -42,14 +69,14 @@ const CalculatorWrapper = ({
 						step: amountInterval.step,
 					}}
 					onChangeValue={onChangeAmount}
-					handleDataRefetch={handleDataRefetch}
-					revalidateData={revalidateData}
+					inputValueRef={inputValueRef}
+					handleChangeValue={handleChangeValue}
 				/>
 				<Divider isWhite={true} />
 				<CalculatorRow
 					calcRef={calcRef}
 					title={STATIC_TEXT_EN.term}
-					calculatedTitle={selectedTerm + ' days'}
+					calculatedTitle={inputValue2 + ' days'}
 					calculatorValues={{
 						defaultValue: selectedTerm,
 						min: termInterval.min,
@@ -57,8 +84,8 @@ const CalculatorWrapper = ({
 						step: termInterval.step,
 					}}
 					onChangeValue={onChangeTerm}
-					handleDataRefetch={handleDataRefetch}
-					revalidateData={revalidateData}
+					inputValueRef={inputValueRef2}
+					handleChangeValue={handleChangeValue2}
 				/>
 			</Calculator>
 		</div>

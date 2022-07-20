@@ -19,7 +19,6 @@ const CalculatorScreen = ({ data }: Props) => {
 	};
 
 	const [value, dispatch] = useReducer(calculatorReducer, initialValues);
-	const [revalidateData, setRevalidateData] = useState<boolean>(true);
 
 	const onChangeAmount = (amountInterval: number) => {
 		dispatch({
@@ -46,7 +45,6 @@ const CalculatorScreen = ({ data }: Props) => {
 				`${BASE_URL}/real-first-loan-offer?amount=${+value.amountInterval}&term=${+value.termInterval}`
 			).then((res) => res.json()),
 		{
-			enabled: revalidateData,
 			staleTime: CACHE_TIME,
 			cacheTime: CACHE_TIME,
 			keepPreviousData: true,
@@ -61,8 +59,6 @@ const CalculatorScreen = ({ data }: Props) => {
 				selectedTerm={+value.termInterval}
 				onChangeAmount={onChangeAmount}
 				onChangeTerm={onChangeTerm}
-				handleDataRefetch={setRevalidateData}
-				revalidateData={revalidateData}
 			/>
 			<NetworkComponent
 				isError={resultError}

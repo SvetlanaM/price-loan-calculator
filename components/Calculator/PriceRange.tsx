@@ -1,83 +1,63 @@
-import React, { Dispatch, useEffect, useState } from 'react';
+import React, { forwardRef } from 'react';
 import { CalculatorType } from '../../utils/Types';
 import PriceRangeIndicator from '../PriceRangeIndicator';
 
 export interface PriceRangeProps {
 	onChangeValue: (value: number) => void;
-	handleDataRefetch: Dispatch<boolean>;
-	revalidateData: boolean;
 	calculatorValues: CalculatorType;
+	inputValueRef: any;
+	handleChangeValue: any;
 }
 
-const PriceRange = ({
-	onChangeValue,
-	handleDataRefetch,
-	revalidateData,
-	calculatorValues,
-}: PriceRangeProps): JSX.Element => {
-	//try useRef instead useState here
-	const [inputValue, setInputValue] = useState(calculatorValues.defaultValue);
-
-	//rewrite with more universal function for handleChangeValue and handleMinMax
-	// use context api instead sending props up and down - idea or move this to the custom hook
-	const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { value } = e.target;
-		setInputValue(+value);
-		onChangeValue(+value);
-	};
-
-	const handleMinMax = (minMax: number) => {
-		handleDataRefetch(true);
-		setInputValue(minMax);
-		onChangeValue(minMax);
-	};
-
-	useEffect(
-		() => handleDataRefetch(false),
-		[revalidateData, calculatorValues.min, calculatorValues.max]
-	);
-
-	return (
-		<React.Fragment>
-			<div className='flex flex-col'>
-				<input
-					type='range'
-					aria-labelledby='range-price-slider'
-					min={calculatorValues.min}
-					max={calculatorValues.max}
-					className='range range-secondary'
-					step={calculatorValues.step}
-					value={inputValue}
-					onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-						handleChangeValue(e);
-					}}
-					onClick={() => {
-						handleDataRefetch(false);
-					}}
-					onMouseUp={() => {
-						handleDataRefetch(true);
-					}}
-					onTouchEnd={() => {
-						handleDataRefetch(true);
-					}}
-				/>
-				<div className='flex justify-between font-bold mt-3'>
-					<PriceRangeIndicator
-						value={calculatorValues.min}
-						onChangeValue={() => {
-							handleMinMax(calculatorValues.min);
+const PriceRange = forwardRef(
+	(
+		{
+			onChangeValue,
+			calculatorValues,
+			inputValueRef,
+			handleChangeValue,
+		}: PriceRangeProps,
+		ref
+	): JSX.Element => {
+		return (
+			<React.Fragment>
+				<div className='flex flex-col'>
+					<input
+						ref={inputValueRef}
+						type='range'
+						aria-labelledby='range-price-slider'
+						min={calculatorValues.min}
+						max={calculatorValues.max}
+						className='range range-secondary'
+						step={calculatorValues.step}
+						defaultValue={calculatorValues.defaultValue}
+						onChange={() => {
+							handleChangeValue(inputValueRef.current?.value);
+						}}
+						onClick={() => {
+							onChangeValue(inputValueRef.current?.value);
+						}}
+						onMouseUp={() => {
+							onChangeValue(inputValueRef.current?.value);
+						}}
+						onTouchEnd={() => {
+							onChangeValue(inputValueRef.current?.value);
 						}}
 					/>
-					<PriceRangeIndicator
-						value={calculatorValues.max}
-						onChangeValue={() => {
-							handleMinMax(calculatorValues.max);
-						}}
-					/>
+					<div className='flex justify-between font-bold mt-3'>
+						<PriceRangeIndicator
+							value={calculatorValues.min}
+							onChangeValue={() => onChangeValue(calculatorValues.min)}
+						/>
+						<PriceRangeIndicator
+							value={calculatorValues.max}
+							onChangeValue={() => onChangeValue(calculatorValues.max)}
+						/>
+					</div>
 				</div>
-			</div>
-		</React.Fragment>
-	);
-};
+			</React.Fragment>
+		);
+	}
+);
 
 export default PriceRange;
