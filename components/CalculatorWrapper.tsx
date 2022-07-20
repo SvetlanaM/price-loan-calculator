@@ -47,13 +47,19 @@ const CalculatorWrapper = ({
 			DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 		>(null);
 
-	const handleChangeValue = useCallback((e: any) => {
-		setInputValue([e, inputValue2]);
-	}, []);
+	const handleChangeValue = useCallback(
+		(e: any) => {
+			setInputValue([e, inputValue2]);
+		},
+		[inputValue2]
+	);
 
-	const handleChangeValue2 = useCallback((e: any) => {
-		setInputValue([inputValue, e]);
-	}, []);
+	const handleChangeValue2 = useCallback(
+		(e: any) => {
+			setInputValue([inputValue, e]);
+		},
+		[inputValue]
+	);
 
 	return (
 		<div className='w-96 bg-pink shadow-xl text-pink-dark'>
@@ -63,7 +69,7 @@ const CalculatorWrapper = ({
 					title={STATIC_TEXT_EN.total_amount}
 					calculatedTitle={inputValue + ' EUR'}
 					calculatorValues={{
-						defaultValue: selectedAmount,
+						defaultValue: inputValue,
 						min: amountInterval.min,
 						max: amountInterval.max,
 						step: amountInterval.step,
@@ -78,7 +84,7 @@ const CalculatorWrapper = ({
 					title={STATIC_TEXT_EN.term}
 					calculatedTitle={inputValue2 + ' days'}
 					calculatorValues={{
-						defaultValue: selectedTerm,
+						defaultValue: inputValue2,
 						min: termInterval.min,
 						max: termInterval.max,
 						step: termInterval.step,

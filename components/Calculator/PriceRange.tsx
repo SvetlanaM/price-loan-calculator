@@ -30,7 +30,7 @@ const PriceRange = forwardRef(
 						max={calculatorValues.max}
 						className='range range-secondary'
 						step={calculatorValues.step}
-						defaultValue={calculatorValues.defaultValue}
+						value={calculatorValues.defaultValue}
 						onChange={() => {
 							handleChangeValue(inputValueRef.current.value);
 						}}
@@ -47,11 +47,17 @@ const PriceRange = forwardRef(
 					<div className='flex justify-between font-bold mt-3'>
 						<PriceRangeIndicator
 							value={calculatorValues.min}
-							onChangeValue={() => onChangeValue(calculatorValues.min)}
+							onChangeValue={() => {
+								onChangeValue(calculatorValues.min);
+								handleChangeValue(calculatorValues.min);
+							}}
 						/>
 						<PriceRangeIndicator
 							value={calculatorValues.max}
-							onChangeValue={() => onChangeValue(calculatorValues.max)}
+							onChangeValue={() => {
+								onChangeValue(calculatorValues.max);
+								handleChangeValue(calculatorValues.max);
+							}}
 						/>
 					</div>
 				</div>
