@@ -32,16 +32,16 @@ const PriceRange = forwardRef(
 						step={calculatorValues.step}
 						defaultValue={calculatorValues.defaultValue}
 						onChange={() => {
-							handleChangeValue(inputValueRef.current?.value);
+							handleChangeValue(inputValueRef.current.value);
 						}}
 						onClick={() => {
-							onChangeValue(inputValueRef.current?.value);
+							onChangeValue(inputValueRef.current.value);
 						}}
 						onMouseUp={() => {
-							onChangeValue(inputValueRef.current?.value);
+							onChangeValue(inputValueRef.current.value);
 						}}
 						onTouchEnd={() => {
-							onChangeValue(inputValueRef.current?.value);
+							onChangeValue(inputValueRef.current.value);
 						}}
 					/>
 					<div className='flex justify-between font-bold mt-3'>
