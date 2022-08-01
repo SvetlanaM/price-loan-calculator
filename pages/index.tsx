@@ -1,49 +1,50 @@
 import type { InferGetStaticPropsType } from 'next';
-import CalculatorAPI from '../api/calculator';
 import CalculatorScreen from '../components/CalculatorScreen';
 import ErrorScreen from '../components/ErrorScreen';
 import Layout from '../components/Layout';
+import fetchAPI from '../utils/FetchAPI';
+import useFetch from '../utils/FetchAPI';
+import { API_HEADERS, BASE_URL } from '../utils/Constants';
+import { CalculatorType } from '../utils/Types';
 
 const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
-	const { notFound, initial } = props;
+	const { notFound, initial, error } = props;
 
 	return (
 		<Layout>
 			{notFound ? (
-				<ErrorScreen userMessage='error' />
+				<ErrorScreen userMessage={error} />
 			) : (
-				<CalculatorScreen data={initial} />
+				initial && <CalculatorScreen data={initial} />
 			)}
 		</Layout>
 	);
 };
 
 export async function getStaticProps() {
-	try {
-		const { data, status } = await CalculatorAPI.get_constraints();
-
-		if (status === 200) {
+	return fetchAPI<Record<'amountInterval' | 'termInterval', CalculatorType>>(
+		BASE_URL + '/constraints',
+		{
+			headers: API_HEADERS,
+		}
+	)
+		.then((data) => {
+			if (data) {
+				return {
+					props: {
+						initial: data,
+					},
+				};
+			}
+		})
+		.catch((error: Error) => {
 			return {
 				props: {
-					initial: data,
-				},
-			};
-		} else {
-			console.error('error');
-			return {
-				props: {
+					error: error.message,
 					notFound: true,
 				},
 			};
-		}
-	} catch (error) {
-		console.error(error);
-		return {
-			props: {
-				notFound: true,
-			},
-		};
-	}
+		});
 }
 
 export default Home;

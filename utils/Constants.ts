@@ -13,3 +13,6 @@ export const STATIC_TEXT_EN = {
 
 export const BASE_URL = 'https://js-developer-second-round.herokuapp.com/api/v1/application'
 export const CACHE_TIME = 5 * 60 * 1000
+export const API_HEADERS =  {
+	'Content-Type': 'application/json',
+}

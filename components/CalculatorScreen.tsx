@@ -1,13 +1,14 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import { numberWithSpace } from '../utils/Format';
-import { CalculatorType } from '../utils/Types';
+import { CalculatorResult, CalculatorType } from '../utils/Types';
 import CalculatorWrapper from './CalculatorWrapper';
 import ResultWrapper from './ResultWrapper';
 import { useReducer } from 'react';
 import { calculatorReducer } from '../reducers/CalculatorReducer';
-import { BASE_URL, CACHE_TIME } from '../utils/Constants';
+import { API_HEADERS, BASE_URL, CACHE_TIME } from '../utils/Constants';
 import NetworkComponent from './NetworkComponent';
+import fetchAPI from '../utils/FetchAPI';
 interface Props {
 	data: Record<'amountInterval' | 'termInterval', CalculatorType>;
 }
@@ -41,9 +42,12 @@ const CalculatorScreen = ({ data }: Props) => {
 	} = useQuery(
 		[value],
 		() =>
-			fetch(
-				`${BASE_URL}/real-first-loan-offer?amount=${+value.amountInterval}&term=${+value.termInterval}`
-			).then((res) => res.json()),
+			fetchAPI<CalculatorResult>(
+				`${BASE_URL}/real-first-loan-offer?amount=${+value.amountInterval}&term=${+value.termInterval}`,
+				{
+					headers: API_HEADERS,
+				}
+			).then((res) => res),
 		{
 			staleTime: CACHE_TIME,
 			cacheTime: CACHE_TIME,

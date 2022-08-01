@@ -35,17 +35,16 @@ const CalculatorWrapper = ({
 	]);
 
 	const inputAmountRef = useRef(null);
-
 	const inputTermRef = useRef(null);
 
-	const handleChangeValue = useCallback(
+	const handleChangeAmount = useCallback(
 		(value: number) => {
 			setInputValue([value, selectedTermInput]);
 		},
 		[selectedTermInput]
 	);
 
-	const handleChangeValue2 = useCallback(
+	const handleChangeTerm = useCallback(
 		(value: number) => {
 			setInputValue([selectedAmountInput, value]);
 		},
@@ -66,7 +65,7 @@ const CalculatorWrapper = ({
 					}}
 					onChangeValue={onChangeAmount}
 					inputValueRef={inputAmountRef}
-					handleChangeValue={handleChangeValue}
+					handleChangeValue={handleChangeAmount}
 				/>
 				<Divider isWhite={true} />
 				<CalculatorRow
@@ -80,7 +79,7 @@ const CalculatorWrapper = ({
 					}}
 					onChangeValue={onChangeTerm}
 					inputValueRef={inputTermRef}
-					handleChangeValue={handleChangeValue2}
+					handleChangeValue={handleChangeTerm}
 				/>
 			</Calculator>
 		</div>

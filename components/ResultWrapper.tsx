@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { STATIC_TEXT_EN } from '../utils/Constants';
 import { CalculatorResult } from '../utils/Types';
 import Result from './Result';
@@ -16,22 +15,22 @@ const ResultWrapper = (props: CalculatorResult): JSX.Element => {
 				<Result.RowContainer>
 					<Result.Row
 						label={STATIC_TEXT_EN.total_principal}
-						value={props.totalPrincipal}
+						value={props.totalPrincipal || 0}
 					/>
 					<Result.Row
 						label={STATIC_TEXT_EN.total_cost_of_credit}
-						value={props.totalCostOfCredit}
+						value={props.totalCostOfCredit || 0}
 						additionalVat={additionalVat}
 					/>
 					<Result.Row
 						label={STATIC_TEXT_EN.total_repayable_amount}
-						value={props.totalRepayableAmount}
+						value={props.totalRepayableAmount || 0}
 						extraClassNames={['font-bold', 'text-green-dark']}
 						additionalVat={additionalVat}
 					/>
 					<Result.Row
 						label={STATIC_TEXT_EN.monthly_payment}
-						value={props.monthlyPayment?.toFixed(2)}
+						value={props.monthlyPayment?.toFixed(2) || 0}
 						extraClassNames={['font-bold', 'text-green-dark']}
 						additionalVat={additionalVat}
 					/>
