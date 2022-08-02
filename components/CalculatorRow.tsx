@@ -31,4 +31,6 @@ const CalculatorRow = forwardRef((props: Props, ref): JSX.Element => {
 	);
 });
 
+CalculatorRow.displayName = 'CalculatorRow';
+
 export default CalculatorRow;

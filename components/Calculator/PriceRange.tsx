@@ -66,4 +66,6 @@ const PriceRange = forwardRef(
 	}
 );
 
+PriceRange.displayName = 'PriceRange';
+
 export default PriceRange;
