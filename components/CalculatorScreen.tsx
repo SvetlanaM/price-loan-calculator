@@ -37,8 +37,8 @@ const CalculatorScreen = ({ data }: Props) => {
 
 	const {
 		data: resultsData,
-		isError: resultError,
 		isLoading: resultLoading,
+		isError,
 	} = useQuery(
 		[value],
 		() =>
@@ -65,9 +65,9 @@ const CalculatorScreen = ({ data }: Props) => {
 				onChangeTerm={onChangeTerm}
 			/>
 			<NetworkComponent
-				isError={resultError}
-				isLoading={resultLoading}
 				children={<ResultWrapper {...resultsData} />}
+				isLoading={resultLoading}
+				isError={isError}
 			/>
 		</React.Fragment>
 	);

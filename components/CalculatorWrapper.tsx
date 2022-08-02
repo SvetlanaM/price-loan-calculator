@@ -1,11 +1,4 @@
-import {
-	DetailedHTMLProps,
-	InputHTMLAttributes,
-	MutableRefObject,
-	useCallback,
-	useRef,
-	useState,
-} from 'react';
+import { useCallback, useRef, useState } from 'react';
 import Calculator from '../components/Calculator/index';
 import { STATIC_TEXT_EN } from '../utils/Constants';
 import { CalculatorType } from '../utils/Types';

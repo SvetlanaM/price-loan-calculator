@@ -36,7 +36,7 @@ const ResultWrapper = (props: CalculatorResult): JSX.Element => {
 					/>
 					<Result.Row
 						label={STATIC_TEXT_EN.term}
-						value={props.term + ' days'}
+						value={props.term || 0 + ' days'}
 						extraClassNames={['font-bold', 'text-green-dark']}
 					/>
 				</Result.RowContainer>

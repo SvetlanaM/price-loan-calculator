@@ -3,20 +3,22 @@ import Loading from './Loading';
 
 interface Props {
 	children: JSX.Element;
-	isError: boolean;
-	isLoading: boolean;
+	isLoading?: boolean;
+	isError?: boolean;
 }
 
 const NetworkComponent = ({
 	children,
-	isError,
 	isLoading,
+	isError,
 }: Props): JSX.Element => {
-	if (isError) {
-		return <ErrorScreen userMessage={'error'} />;
-	}
-
-	return isLoading ? <Loading /> : children;
+	return isLoading ? (
+		<Loading />
+	) : isError ? (
+		<ErrorScreen userMessage={'No data, try later :)'} />
+	) : (
+		children
+	);
 };
 
 export default NetworkComponent;

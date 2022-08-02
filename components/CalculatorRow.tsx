@@ -1,4 +1,4 @@
-import { forwardRef, Ref } from 'react';
+import { forwardRef } from 'react';
 import Calculator from '../components/Calculator/index';
 import { PriceRangeProps } from './Calculator/PriceRange';
 import ColumnContainer from './ColumnContainer';

@@ -1,4 +1,4 @@
-import { forwardRef, MouseEventHandler } from 'react';
+import { MouseEventHandler } from 'react';
 
 interface Props {
 	value: number;

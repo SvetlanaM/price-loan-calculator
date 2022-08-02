@@ -3,7 +3,6 @@ import CalculatorScreen from '../components/CalculatorScreen';
 import ErrorScreen from '../components/ErrorScreen';
 import Layout from '../components/Layout';
 import fetchAPI from '../utils/FetchAPI';
-import useFetch from '../utils/FetchAPI';
 import { API_HEADERS, BASE_URL } from '../utils/Constants';
 import { CalculatorType } from '../utils/Types';
 
@@ -13,7 +12,7 @@ const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
 	return (
 		<Layout>
 			{notFound ? (
-				<ErrorScreen userMessage={error} />
+				<ErrorScreen userMessage={error} extraClassNames='w-1/2' />
 			) : (
 				initial && <CalculatorScreen data={initial} />
 			)}
