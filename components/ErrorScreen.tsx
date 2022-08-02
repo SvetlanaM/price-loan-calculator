@@ -19,7 +19,7 @@ const ErrorScreen = ({
 	}, [logger, userMessage, setErrorMessage]);
 
 	return (
-		<div className='flex justify-center flex-col min-h-auto items-center py-16 h-[384px]'>
+		<div className='flex justify-center flex-col min-h-auto items-center py-16 h-[409px]'>
 			<h2 className={`text-2xl font-medium mt-5 ${extraClassNames}`}>
 				{errorMessage}
 			</h2>
