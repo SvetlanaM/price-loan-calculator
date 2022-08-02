@@ -6,7 +6,7 @@ const useLogger = () => {
 		(
 			error?: string,
 		) => {
-			console.log(error)
+			console.error(error)
 		},
 		[]
 	);

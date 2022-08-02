@@ -1,24 +1,24 @@
-import { States } from '../utils/Types';
 import ErrorScreen from './ErrorScreen';
-import Layout from './Layout';
 import Loading from './Loading';
 
 interface Props {
 	children: JSX.Element;
-	state: States;
+	isLoading?: boolean;
+	isError?: boolean;
 }
 
-const NetworkComponent = ({ children, state }: Props): JSX.Element => {
-	switch (state) {
-		case States.NonInitialited:
-			return <Loading />;
-		case States.Loading:
-			return <Loading />;
-		case States.Error:
-			return <ErrorScreen userMessage={'error'} />;
-		case States.Loaded:
-			return <Layout>{children}</Layout>;
-	}
+const NetworkComponent = ({
+	children,
+	isLoading,
+	isError,
+}: Props): JSX.Element => {
+	return isLoading ? (
+		<Loading />
+	) : isError ? (
+		<ErrorScreen userMessage={'No data, try later :)'} />
+	) : (
+		children
+	);
 };
 
 export default NetworkComponent;

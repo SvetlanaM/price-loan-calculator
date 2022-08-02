@@ -5,12 +5,10 @@ interface Props {
 	onChangeValue: MouseEventHandler<HTMLSpanElement>;
 }
 
-const PriceRangeIndicator = ({ value, onChangeValue }: Props): JSX.Element => {
-	return (
-		<span className='cursor-pointer' onClick={onChangeValue}>
-			{value}
-		</span>
-	);
-};
+const PriceRangeIndicator = ({ value, onChangeValue }: Props) => (
+	<span className='cursor-pointer' onClick={onChangeValue}>
+		{value}
+	</span>
+);
 
 export default PriceRangeIndicator;

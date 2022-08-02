@@ -6,11 +6,11 @@ export type CalculatorType = {
 }
 
 export type CalculatorResult = {
-	totalPrincipal: number,
-	term: number,
-	totalCostOfCredit: number,
-	totalRepayableAmount: number,
-	monthlyPayment: number
+	totalPrincipal?: number | undefined,
+	term?: number | undefined,
+	totalCostOfCredit?: number | undefined,
+	totalRepayableAmount?: number | undefined,
+	monthlyPayment?: number | undefined
 }
 
 export enum States {

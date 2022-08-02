@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import Meta from '../components/Meta';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import Calculator from '../components/Calculator';
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -19,8 +20,10 @@ const queryClient = new QueryClient({
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<Meta />
-			<Component {...pageProps} />
+			<Calculator>
+				<Meta />
+				<Component {...pageProps} />
+			</Calculator>
 		</QueryClientProvider>
 	);
 }

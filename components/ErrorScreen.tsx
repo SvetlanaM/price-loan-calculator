@@ -3,9 +3,13 @@ import useLogger from '../hooks/useLogger';
 
 interface ErrorScreenProps {
 	userMessage?: string;
+	extraClassNames?: string;
 }
 
-const ErrorScreen = ({ userMessage }: ErrorScreenProps): JSX.Element => {
+const ErrorScreen = ({
+	userMessage,
+	extraClassNames,
+}: ErrorScreenProps): JSX.Element => {
 	const [errorMessage, setErrorMessage] = useState<string>('Not defined error');
 	const logger = useLogger();
 
@@ -15,8 +19,10 @@ const ErrorScreen = ({ userMessage }: ErrorScreenProps): JSX.Element => {
 	}, [logger, userMessage, setErrorMessage]);
 
 	return (
-		<div className='flex justify-center flex-col min-h-auto items-center py-16'>
-			<h2 className='text-2xl font-medium mt-5'>{errorMessage}</h2>
+		<div className='flex justify-center flex-col min-h-auto items-center py-16 h-[384px]'>
+			<h2 className={`text-2xl font-medium mt-5 ${extraClassNames}`}>
+				{errorMessage}
+			</h2>
 		</div>
 	);
 };

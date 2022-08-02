@@ -1,4 +1,4 @@
-import { Dispatch, useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import Calculator from '../components/Calculator/index';
 import { STATIC_TEXT_EN } from '../utils/Constants';
 import { CalculatorType } from '../utils/Types';
@@ -12,8 +12,6 @@ interface Props {
 	selectedTerm: number;
 	onChangeAmount: (amountInterval: number) => void;
 	onChangeTerm: (termInterval: number) => void;
-	handleDataRefetch: Dispatch<boolean>;
-	revalidateData: boolean;
 }
 
 const CalculatorWrapper = ({
@@ -23,38 +21,58 @@ const CalculatorWrapper = ({
 	selectedTerm,
 	onChangeAmount,
 	onChangeTerm,
-	handleDataRefetch,
-	revalidateData,
 }: Props): JSX.Element => {
-	const calcRef = useRef<HTMLDivElement | null>(null);
+	const [[selectedAmountInput, selectedTermInput], setInputValue] = useState([
+		selectedAmount,
+		selectedTerm,
+	]);
+
+	const inputAmountRef = useRef(null);
+	const inputTermRef = useRef(null);
+
+	const handleChangeAmount = useCallback(
+		(value: number) => {
+			setInputValue([value, selectedTermInput]);
+		},
+		[selectedTermInput]
+	);
+
+	const handleChangeTerm = useCallback(
+		(value: number) => {
+			setInputValue([selectedAmountInput, value]);
+		},
+		[selectedAmountInput]
+	);
 
 	return (
 		<div className='w-96 bg-pink shadow-xl text-pink-dark'>
-			<Calculator calcRef={calcRef}>
+			<Calculator>
 				<CalculatorRow
-					calcRef={calcRef}
 					title={STATIC_TEXT_EN.total_amount}
-					calculatedTitle={selectedAmount + ' EUR'}
-					min={amountInterval?.min}
-					max={amountInterval?.max}
-					value={selectedAmount}
-					step={amountInterval?.step}
+					calculatedTitle={selectedAmountInput + ' EUR'}
+					calculatorValues={{
+						defaultValue: selectedAmountInput,
+						min: amountInterval.min,
+						max: amountInterval.max,
+						step: amountInterval.step,
+					}}
 					onChangeValue={onChangeAmount}
-					handleDataRefetch={handleDataRefetch}
-					revalidateData={revalidateData}
+					inputValueRef={inputAmountRef}
+					handleChangeValue={handleChangeAmount}
 				/>
 				<Divider isWhite={true} />
 				<CalculatorRow
-					calcRef={calcRef}
 					title={STATIC_TEXT_EN.term}
-					calculatedTitle={selectedTerm + ' days'}
-					min={termInterval?.min}
-					max={termInterval?.max}
-					value={selectedTerm}
-					step={termInterval?.step}
+					calculatedTitle={selectedTermInput + ' days'}
+					calculatorValues={{
+						defaultValue: selectedTermInput,
+						min: termInterval.min,
+						max: termInterval.max,
+						step: termInterval.step,
+					}}
 					onChangeValue={onChangeTerm}
-					handleDataRefetch={handleDataRefetch}
-					revalidateData={revalidateData}
+					inputValueRef={inputTermRef}
+					handleChangeValue={handleChangeTerm}
 				/>
 			</Calculator>
 		</div>

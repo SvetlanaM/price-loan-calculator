@@ -1,18 +1,17 @@
-import { Dispatch, Ref } from 'react';
+import { forwardRef } from 'react';
 import Calculator from '../components/Calculator/index';
 import { PriceRangeProps } from './Calculator/PriceRange';
 import ColumnContainer from './ColumnContainer';
 
 interface Props extends PriceRangeProps {
-	calcRef: Ref<HTMLDivElement> | undefined;
 	title: string;
 	calculatedTitle: string;
 	onChangeValue: (value: number) => void;
-	handleDataRefetch: Dispatch<boolean>;
-	revalidateData: boolean;
+	inputValueRef: React.MutableRefObject<HTMLInputElement | null>;
+	handleChangeValue: (value: number) => void;
 }
 
-const CalculatorRow = (props: Props): JSX.Element => {
+const CalculatorRow = forwardRef((props: Props, ref): JSX.Element => {
 	return (
 		<Calculator.Content>
 			<ColumnContainer>
@@ -23,16 +22,13 @@ const CalculatorRow = (props: Props): JSX.Element => {
 				/>
 			</ColumnContainer>
 			<Calculator.PriceRange
-				min={props.min}
-				max={props.max}
-				value={props.value}
-				step={props.step}
+				calculatorValues={props.calculatorValues}
 				onChangeValue={props.onChangeValue}
-				handleDataRefetch={props.handleDataRefetch}
-				revalidateData={props.revalidateData}
+				inputValueRef={props.inputValueRef}
+				handleChangeValue={props.handleChangeValue}
 			/>
 		</Calculator.Content>
 	);
-};
+});
 
 export default CalculatorRow;
