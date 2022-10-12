@@ -11,7 +11,7 @@ interface Props extends PriceRangeProps {
 	handleChangeValue: (value: number) => void;
 }
 
-const CalculatorRow = forwardRef((props: Props, ref): JSX.Element => {
+const CalculatorRow = forwardRef((props: Props): JSX.Element => {
 	return (
 		<Calculator.Content>
 			<ColumnContainer>

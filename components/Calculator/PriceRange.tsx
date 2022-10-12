@@ -10,15 +10,12 @@ export interface PriceRangeProps {
 }
 
 const PriceRange = forwardRef(
-	(
-		{
-			onChangeValue,
-			calculatorValues,
-			inputValueRef,
-			handleChangeValue,
-		}: PriceRangeProps,
-		ref
-	): JSX.Element => {
+	({
+		onChangeValue,
+		calculatorValues,
+		inputValueRef,
+		handleChangeValue,
+	}: PriceRangeProps): JSX.Element => {
 		return (
 			<React.Fragment>
 				<div className='flex flex-col'>
@@ -32,16 +29,32 @@ const PriceRange = forwardRef(
 						step={calculatorValues.step}
 						value={calculatorValues.defaultValue}
 						onChange={() => {
-							handleChangeValue(+inputValueRef!.current!.value);
+							handleChangeValue(
+								+(
+									inputValueRef?.current?.value ?? calculatorValues.defaultValue
+								)
+							);
 						}}
 						onClick={() => {
-							onChangeValue(+inputValueRef!.current!.value);
+							onChangeValue(
+								+(
+									inputValueRef?.current?.value ?? calculatorValues.defaultValue
+								)
+							);
 						}}
 						onMouseUp={() => {
-							onChangeValue(+inputValueRef!.current!.value);
+							onChangeValue(
+								+(
+									inputValueRef?.current?.value ?? calculatorValues.defaultValue
+								)
+							);
 						}}
 						onTouchEnd={() => {
-							onChangeValue(+inputValueRef!.current!.value);
+							onChangeValue(
+								+(
+									inputValueRef?.current?.value ?? calculatorValues.defaultValue
+								)
+							);
 						}}
 					/>
 					<div className='flex justify-between font-bold mt-3'>
