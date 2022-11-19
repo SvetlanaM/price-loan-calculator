@@ -16,4 +16,6 @@ Interesting information about this implementation:
 3. Default error screen
 4. Network component for handling loading, error and data state
 5. I used useRef instead of useState for getting values from the input sliders
+6. Custom reducers instead of useState
+7. Universal useFetch function for getting the data
 6. Optimalisation
