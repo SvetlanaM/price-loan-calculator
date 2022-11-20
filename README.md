@@ -18,4 +18,4 @@ Interesting information about this implementation:
 5. I used useRef instead of useState for getting values from the input sliders
 6. Custom reducers instead of useState
 7. Universal useFetch function for getting the data
-6. Optimalisation
+8. Optimalisation - prevent additional API calls, when user moves with the slider. 
